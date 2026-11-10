@@ -1,0 +1,1018 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Kant und die Aufklärung</title>
+<style>
+/* Layout: ein Lernweg in fünf Schritten. Lesespalte (max. 1040px), Stepper oben angeheftet,
+   im Textschritt rechts (Desktop) bzw. unten (Handy) ein Begriffsfenster. */
+:root{
+  --bg:#F2F5FA; --surface:#FFFFFF; --surface-2:#E8EDF6; --ink:#16203A; --muted:#556079; --line:#D3DAE8;
+  --brand:#2447A8; --brand-ink:#FFFFFF; --brand-soft:#E2E9FA;
+  --hl:#FFD24D; --hl-soft:rgba(255,210,77,.38); --on-hl:#16203A; --focus:#2447A8;
+  --good:#16714A; --good-soft:#DCF2E6; --bad:#AE2F2E; --bad-soft:#FADFDD;
+  --shadow:0 1px 2px rgba(22,32,58,.08),0 8px 24px rgba(22,32,58,.07);
+  --font-ui:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --font-read:Georgia,"Times New Roman",serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0D1324; --surface:#151D33; --surface-2:#1E2842; --ink:#E8EDF8; --muted:#9CA8C3; --line:#2B3656;
+    --brand:#8FB1FF; --brand-ink:#0D1324; --brand-soft:#1E2B52;
+    --hl:#F5C94A; --hl-soft:rgba(245,201,74,.26); --on-hl:#16203A; --focus:#FFD24D;
+    --good:#74D6A4; --good-soft:#12342A; --bad:#FF918E; --bad-soft:#3B1C1E;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.3);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0D1324; --surface:#151D33; --surface-2:#1E2842; --ink:#E8EDF8; --muted:#9CA8C3; --line:#2B3656;
+  --brand:#8FB1FF; --brand-ink:#0D1324; --brand-soft:#1E2B52;
+  --hl:#F5C94A; --hl-soft:rgba(245,201,74,.26); --on-hl:#16203A; --focus:#FFD24D;
+  --good:#74D6A4; --good-soft:#12342A; --bad:#FF918E; --bad-soft:#3B1C1E;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.3);
+  color-scheme:dark;
+}
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1rem/1.6 var(--font-ui);overflow-wrap:break-word}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:40;background:var(--surface)}
+.wrap{max-width:1040px;margin-inline:auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3,h4{font-family:var(--font-read);font-weight:600;line-height:1.25;text-wrap:balance;margin:0}
+h2{font-size:clamp(1.45rem,3.6vw,1.9rem);margin-bottom:12px}
+h3{font-size:1.2rem;margin-bottom:8px}
+h4{font-size:1.02rem;margin-bottom:4px}
+p{margin:0 0 12px}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px;border-radius:4px}
+button{font-family:inherit}
+
+/* Kopf */
+.top{background:var(--surface);border-bottom:1px solid var(--line)}
+.head{display:flex;gap:16px;align-items:center;padding-block:20px}
+.mark svg{display:block;width:52px;height:52px}
+.eyebrow{margin:0;font-size:.78rem;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:700}
+h1{font-size:clamp(1.55rem,5vw,2.4rem);margin-top:2px}
+
+/* Stepper */
+.steps{position:sticky;top:env(safe-area-inset-top,0px);z-index:41;background:var(--surface);border-bottom:1px solid var(--line)}
+.steps ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:2px}
+.stp{display:flex;flex-direction:column;align-items:center;gap:3px;width:100%;min-height:58px;padding:8px 2px 8px;background:none;border:0;border-bottom:3px solid transparent;color:var(--muted);font:700 .78rem/1.2 var(--font-ui);cursor:pointer}
+.stp .n{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;border:2px solid var(--line);font-size:.8rem;background:var(--surface)}
+.stp.seen .n{border-color:var(--brand);color:var(--brand)}
+.stp[aria-current="step"]{color:var(--ink);border-bottom-color:var(--hl)}
+.stp[aria-current="step"] .n{background:var(--hl);border-color:var(--hl);color:var(--on-hl)}
+.prog{height:3px;background:var(--surface-2)}
+.prog i{display:block;height:100%;width:20%;background:var(--brand);transition:width .25s}
+
+/* Grundbausteine */
+.main{padding-block:28px 24px}
+.sec{max-width:100%}
+.lead{font-size:1.1rem;max-width:68ch}
+.sec p,.sec li{max-width:70ch}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:12px 32px;margin:24px 0}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px;box-shadow:var(--shadow);margin-block:20px;min-width:0}
+.card>h3:first-child{margin-top:0}
+.chip{display:inline-block;font:700 .74rem/1.4 var(--font-ui);letter-spacing:.02em;padding:2px 9px;border-radius:999px;border:1px solid var(--line);background:var(--surface-2);color:var(--muted);white-space:nowrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:10px 18px;border-radius:8px;border:2px solid var(--brand);background:var(--brand);color:var(--brand-ink);font:700 .95rem/1.2 var(--font-ui);cursor:pointer}
+.btn:hover{filter:brightness(1.08)}
+.btn:disabled{opacity:.45;cursor:not-allowed;filter:none}
+.btn.ghost{background:transparent;color:var(--brand)}
+.btn.small{min-height:36px;padding:6px 12px;font-size:.88rem}
+.goals,.plan{margin:0;padding:0;list-style:none;display:grid;gap:10px}
+.goals li{display:flex;gap:10px;align-items:baseline}
+.plan li{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:baseline}
+.plan b{font-family:var(--font-read)}
+.time{font-size:.85rem;color:var(--muted)}
+.rule{border:0;border-top:1px solid var(--line);margin:36px 0 28px}
+
+/* Auswahlfelder (Radio, Checkbox, Wahr/Falsch) */
+.opts{display:grid;gap:10px}
+.opt{display:flex;gap:12px;align-items:flex-start;text-align:left;width:100%;padding:12px 14px;border:2px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink);font:400 1rem/1.5 var(--font-ui);cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--brand)}
+.opt[aria-pressed="true"]{border-color:var(--brand);background:var(--brand-soft)}
+.opt:disabled{cursor:default;color:var(--ink)}
+.opt .box{flex:none;display:grid;place-items:center;width:22px;height:22px;margin-top:1px;border:2px solid var(--muted);border-radius:50%;font:700 .8rem/1 var(--font-ui);color:var(--brand-ink)}
+.opt.multi .box{border-radius:5px}
+.opt[aria-pressed="true"] .box{background:var(--brand);border-color:var(--brand)}
+.opt.ok{border-color:var(--good);background:var(--good-soft)}
+.opt.ok .box{background:var(--good);border-color:var(--good)}
+.opt.bad{border-color:var(--bad);background:var(--bad-soft)}
+.opt.bad .box{background:var(--bad);border-color:var(--bad)}
+.opt.miss{border-style:dashed}
+.fb{margin-top:16px;padding:14px 16px;border-radius:10px;background:var(--surface-2)}
+.fb.ok{background:var(--good-soft)}
+.fb.bad{background:var(--bad-soft)}
+.fb b{display:block;margin-bottom:2px}
+.fb.neutral{background:var(--brand-soft)}
+
+/* Textschritt */
+.read-grid{display:grid;gap:24px;grid-template-columns:minmax(0,1fr);align-items:start}
+.tools{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;margin-bottom:12px;font-size:.9rem;color:var(--muted)}
+.tools .btn{min-width:44px}
+.sw{display:inline-flex;gap:8px;align-items:center;cursor:pointer}
+.sw input{width:20px;height:20px;accent-color:var(--brand)}
+.kantcard{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:24px clamp(16px,4vw,32px);box-shadow:var(--shadow)}
+.kantcard header{display:flex;gap:12px;align-items:baseline;margin-bottom:12px;border-bottom:1px solid var(--line);padding-bottom:10px}
+.m2{margin:0;font:700 1.05rem var(--font-ui);color:var(--brand)}
+.kant{font-family:var(--font-read);font-size:calc(1.1rem*var(--zoom,1));line-height:1.85}
+.kant p{max-width:none;margin-bottom:1em}
+.kant em{font-style:italic}
+.kant.small{font-size:1rem;line-height:1.7}
+.src{margin:8px 0 0;font-size:.9rem;color:var(--muted);text-align:right}
+.note{margin:14px 0 0;font-size:.88rem;color:var(--muted)}
+.ln{display:inline-block;font:700 .66rem/1.5 var(--font-ui);padding:0 5px;margin:0 4px;border:1px solid var(--line);border-radius:4px;background:var(--surface-2);color:var(--muted);vertical-align:.3em;user-select:none}
+.term{font:inherit;font-style:inherit;color:inherit;background:linear-gradient(transparent 58%,var(--hl-soft) 58%);border:0;border-bottom:2px solid var(--hl);padding:0 1px;margin:0;border-radius:2px;cursor:pointer;text-align:inherit}
+.term:hover{background:var(--hl-soft)}
+.term.on{background:var(--hl);color:var(--on-hl)}
+.nohl .term{background:none;border-bottom-color:transparent;pointer-events:none}
+.gloss{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px;box-shadow:var(--shadow);min-width:0}
+.gloss h4{font-size:1.1rem}
+.gloss .zz{font-size:.82rem;color:var(--muted);margin:0 0 8px}
+.gloss .ph{color:var(--muted);margin:0}
+.gloss .content{display:none}
+.gloss.filled .content{display:block}
+.gloss.filled .ph{display:none}
+.gloss .x{position:absolute;top:8px;right:max(8px,env(safe-area-inset-right,0px));display:none}
+.gloss-title{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:6px}
+.gloss-title .eyebrow{margin:0}
+.task textarea,.ta{display:block;width:100%;min-height:96px;margin-top:8px;padding:10px 12px;border:2px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font:400 1rem/1.55 var(--font-ui);resize:vertical}
+.ta:focus{border-color:var(--brand)}
+label.lbl{font-weight:700;display:block}
+@media (min-width:960px){
+  .read-grid{grid-template-columns:minmax(0,1fr) 320px}
+  .gloss{position:sticky;top:calc(env(safe-area-inset-top,0px) + 76px)}
+}
+@media (max-width:959px){
+  .gloss{position:fixed;left:0;right:0;bottom:0;z-index:50;border-radius:16px 16px 0 0;padding:18px max(20px,env(safe-area-inset-right,0px)) calc(18px + env(safe-area-inset-bottom,0px)) max(20px,env(safe-area-inset-left,0px));transform:translateY(110%);transition:transform .22s ease;max-height:60vh;overflow:auto}
+  .gloss.open{transform:none}
+  .gloss .ph{display:none}
+  .gloss .x{display:inline-flex}
+  .gloss .gloss-title .btn{display:inline-flex}
+}
+@media (min-width:960px){.gloss .gloss-title .btn{display:none}}
+
+/* Verstehen */
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:16px}
+.facts div{padding:2px 0}
+.facts p{font-size:.95rem;margin:0}
+.thought{display:grid;gap:10px;margin:12px 0 0}
+.thought details{background:var(--surface);border:1px solid var(--line);border-radius:12px}
+.thought summary{display:flex;gap:12px;align-items:center;padding:14px 16px;cursor:pointer;font:700 1.02rem/1.3 var(--font-ui);list-style:none}
+.thought summary::-webkit-details-marker{display:none}
+.thought summary .n{flex:none;display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--hl);color:var(--on-hl);font-size:.9rem}
+.thought summary .zr{margin-left:auto;flex:none}
+.thought summary::after{content:"＋";flex:none;color:var(--muted)}
+.thought details[open] summary::after{content:"−"}
+.thought .in{padding:0 16px 16px 56px}
+.thought blockquote{margin:0 0 10px;padding:10px 14px;border-radius:8px;background:var(--surface-2);font:400 1rem/1.7 var(--font-read)}
+@media (max-width:560px){.thought .in{padding-left:16px}.thought summary .zr{display:none}}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,290px),1fr));gap:14px}
+.rv{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.rv h4{margin:0}
+.rv .q{font:italic 400 .98rem/1.6 var(--font-read);margin:0}
+.rv .a{margin:0;padding:10px 12px;border-radius:8px;background:var(--brand-soft)}
+.rv .btn{align-self:flex-start;margin-top:auto}
+.chunk{display:grid;grid-template-columns:76px minmax(0,1fr);gap:8px 14px;padding:16px 0;border-top:1px solid var(--line)}
+.chunk:first-of-type{border-top:0}
+.chunk .z{font:700 .82rem var(--font-ui);color:var(--muted);padding-top:3px}
+.chunk .tx{font:400 .98rem/1.7 var(--font-read);margin:0}
+.cats{grid-column:2;display:flex;flex-wrap:wrap;gap:6px}
+.cat{min-height:36px;padding:5px 12px;border:2px solid var(--line);border-radius:999px;background:var(--surface);color:var(--ink);font:700 .85rem/1.2 var(--font-ui);cursor:pointer}
+.cat:hover:not(:disabled){border-color:var(--brand)}
+.cat[aria-pressed="true"]{background:var(--brand);border-color:var(--brand);color:var(--brand-ink)}
+.cat.ok{background:var(--good);border-color:var(--good);color:var(--brand-ink)}
+.cat.bad{background:var(--bad);border-color:var(--bad);color:var(--brand-ink)}
+.cat.key{border-color:var(--good);border-style:dashed}
+.why{grid-column:2;margin:0;font-size:.92rem;padding:8px 12px;border-radius:8px;background:var(--surface-2)}
+.why.ok{background:var(--good-soft)}.why.bad{background:var(--bad-soft)}
+@media (max-width:560px){.chunk{grid-template-columns:minmax(0,1fr)}.cats,.why{grid-column:1}}
+.bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:12px}
+
+.helpbox{background:var(--hl-soft);border-radius:10px;padding:14px 16px;margin:14px 0 4px}
+.helpbox h4{margin-bottom:6px}
+.helpbox ul{margin:0;padding-left:20px}
+.helpbox li{margin-bottom:4px;max-width:none}
+.rv .hint{margin:0;font-size:.88rem;color:var(--muted)}
+/* Quiz */
+.qprog{display:flex;gap:5px;margin:0 0 14px}
+.qprog i{flex:1;height:7px;border-radius:4px;background:var(--line)}
+.qprog i.cur{background:var(--brand)}
+.qprog i.ok{background:var(--good)}
+.qprog i.bad{background:var(--bad)}
+.qhead{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:12px}
+.qn{margin-left:auto;font-size:.85rem;color:var(--muted)}
+.qp{font-size:1.15rem;margin-bottom:16px}
+.qact{margin-top:18px;display:flex;gap:10px;flex-wrap:wrap}
+.match{display:grid;gap:12px}
+.mrow{display:grid;grid-template-columns:minmax(0,1fr);gap:6px}
+.mrow select{width:100%;min-height:44px;padding:8px 10px;border:2px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);font:400 1rem var(--font-ui)}
+.mrow.ok select{border-color:var(--good);background:var(--good-soft)}
+.mrow.bad select{border-color:var(--bad);background:var(--bad-soft)}
+.mrow .mx{font-size:.9rem;margin:0}
+@media (min-width:620px){.mrow{grid-template-columns:200px minmax(0,1fr);align-items:center}.mrow .mx{grid-column:2}}
+.tf{padding:12px 0;border-top:1px solid var(--line)}
+.tf:first-child{border-top:0;padding-top:0}
+.tf p{margin:0 0 8px}
+.tfb{display:flex;gap:8px;flex-wrap:wrap}
+.tfb .opt{width:auto;min-width:112px;align-items:center}
+.tfx{font-size:.92rem;color:var(--muted);margin:8px 0 0!important}
+details.look{margin:16px 0;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:0}
+details.look summary{cursor:pointer;padding:12px 16px;font-weight:700}
+details.look .kant{padding:0 16px 16px}
+.res h3{font-size:1.5rem}
+.res ul{list-style:none;margin:12px 0;padding:0;display:grid;gap:6px}
+.res li{display:flex;gap:10px;align-items:baseline}
+
+/* Transfer */
+.cmp{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:14px}
+.today{margin:0;padding:10px 12px;border-radius:8px;background:var(--hl-soft)}
+.sit h4{margin-bottom:6px}
+.sit .opts{margin-top:10px}
+.sit .fb{margin-top:12px}
+.args{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:10px;margin:12px 0}
+.arg{display:flex;flex-direction:column;gap:8px;align-items:flex-start;text-align:left;padding:14px;border:2px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink);font:400 .98rem/1.5 var(--font-ui);cursor:pointer}
+.arg[aria-pressed="true"]{border-color:var(--brand);background:var(--brand-soft)}
+.arg .tag{font-size:.74rem}
+.starters{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 0}
+.quote{margin:20px 0;padding:18px 20px;border-radius:12px;background:var(--hl-soft);font:600 1.15rem/1.5 var(--font-read)}
+.quote small{display:block;margin-top:6px;font:400 .88rem var(--font-ui);color:var(--muted)}
+.rueck{margin:0;padding:12px 14px;border-radius:8px;background:var(--surface-2)}
+
+/* Fuß */
+.pager{display:flex;justify-content:space-between;gap:12px;margin-top:36px;padding-top:20px;border-top:1px solid var(--line)}
+.foot{padding-block:8px 48px;font-size:.92rem}
+.foot details{background:var(--surface);border:1px solid var(--line);border-radius:12px;margin-bottom:12px}
+.foot summary{cursor:pointer;padding:12px 16px;font-weight:700}
+.foot .in{padding:0 16px 14px}
+.foot li{margin-bottom:6px}
+.foot .in ul{padding-left:20px;margin:0}
+.msg{font-size:.92rem;color:var(--muted);margin:10px 0 0}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+@media (max-width:420px){.head{gap:12px}.mark svg{width:42px;height:42px}.card{padding:16px}}
+</style></head><body>
+
+<header class="top">
+  <div class="wrap head">
+    <div class="mark" aria-hidden="true">
+      <svg viewBox="0 0 48 48"><path d="M13 36a11 11 0 0 1 22 0z" fill="var(--hl)"/><g stroke="var(--hl)" stroke-width="3" stroke-linecap="round"><path d="M24 20v-5"/><path d="M35.3 24.7l3.5-3.5"/><path d="M12.7 24.7l-3.5-3.5"/><path d="M40 36h5"/><path d="M8 36H3"/></g><path d="M4 40h40" stroke="var(--ink)" stroke-width="3" stroke-linecap="round"/></svg>
+    </div>
+    <div>
+      <p class="eyebrow">Ethik · FOS 11 · Textarbeit M2</p>
+      <h1>Kant und die Aufklärung</h1>
+    </div>
+  </div>
+</header>
+
+<nav class="steps" aria-label="Lernweg">
+  <div class="wrap">
+    <ol>
+      <li><button class="stp" id="stp-einstieg" data-s="einstieg"><span class="n">1</span>Einstieg</button></li>
+      <li><button class="stp" id="stp-text" data-s="text"><span class="n">2</span>Text</button></li>
+      <li><button class="stp" id="stp-verstehen" data-s="verstehen"><span class="n">3</span>Verstehen</button></li>
+      <li><button class="stp" id="stp-quiz" data-s="quiz"><span class="n">4</span>Quiz</button></li>
+      <li><button class="stp" id="stp-transfer" data-s="transfer"><span class="n">5</span>Transfer</button></li>
+    </ol>
+  </div>
+  <div class="prog"><i id="progFill"></i></div>
+</nav>
+
+<main class="wrap main" id="main">
+
+  <!-- 1 EINSTIEG -->
+  <section class="sec" id="sec-einstieg" hidden aria-labelledby="h-einstieg">
+    <h2 id="h-einstieg">Selber denken: worum geht es?</h2>
+    <p class="lead">1784 beantwortet Immanuel Kant in einem Zeitschriftenaufsatz die Frage »Was ist Aufklärung?«. In deinem Lehrbuch steht unter M2 »Selber denken« der Anfang dieses Aufsatzes. Hier erschließt du den Text in fünf Schritten und prüfst am Ende, was er mit deinem Alltag zu tun hat.</p>
+
+    <div class="two">
+      <div>
+        <h3>Das kannst du danach</h3>
+        <ul class="goals">
+          <li><span class="chip">AFB I</span><span>Kants Definition von Aufklärung und Unmündigkeit wiedergeben.</span></li>
+          <li><span class="chip">AFB II</span><span>Ursachen und Hindernisse der Unmündigkeit am Text belegen und den Gedankengang gliedern.</span></li>
+          <li><span class="chip">AFB III</span><span>Beurteilen, ob »Sapere aude!« heute noch aktuell ist, und dein Urteil begründen.</span></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Dein Weg</h3>
+        <ol class="plan" style="list-style:none;padding:0;margin:0">
+          <li><b>Text</b><span>lesen und Begriffe klären <span class="time">· ca. 10 Min.</span></span></li>
+          <li><b>Verstehen</b><span>Gedankengang, Schlüsselbegriffe, Gliederung <span class="time">· ca. 15 Min.</span></span></li>
+          <li><b>Quiz</b><span>neun Aufgaben mit Rückmeldung <span class="time">· ca. 10 Min.</span></span></li>
+          <li><b>Transfer</b><span>Kant und dein Alltag, eigenes Urteil <span class="time">· ca. 20 Min.</span></span></li>
+        </ol>
+        <p class="time" style="margin-top:8px">Die Zeiten sind Richtwerte.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Zum Warmwerden</h3>
+      <p>Du sollst morgen etwas erklären, das du noch nicht kannst. Was machst du als Erstes?</p>
+      <div class="opts" id="pollOpts"></div>
+      <div class="fb neutral" id="pollFb" hidden></div>
+    </div>
+  </section>
+
+  <!-- 2 TEXT -->
+  <section class="sec" id="sec-text" hidden aria-labelledby="h-text">
+    <h2 id="h-text">Den Text lesen</h2>
+    <p class="lead">Lies den Auszug einmal ganz durch. Unterstrichene Wörter kannst du antippen. Die Erklärung erscheint rechts, auf dem Handy unten.</p>
+    <div class="read-grid">
+      <div>
+        <div class="tools">
+          <span>Schriftgröße</span>
+          <button class="btn ghost small" id="zMinus" type="button" aria-label="Schrift kleiner">A−</button>
+          <button class="btn ghost small" id="zPlus" type="button" aria-label="Schrift größer">A+</button>
+          <label class="sw"><input type="checkbox" id="hlToggle" checked> Begriffe markieren</label>
+        </div>
+        <article class="kantcard">
+          <header><p class="m2">M2</p><h3 style="margin:0">Selber denken</h3></header>
+          <div class="kant" id="kant">
+<p><em><button class="term" data-k="aufklaerung" type="button">Aufklärung</button> ist der Ausgang des Menschen aus seiner selbst verschuldeten <button class="term" data-k="unmuendig" type="button">Unmündigkeit</button>.</em> <button class="term" data-k="unmuendig" type="button"><em>Unmündigkeit</em></button> ist das Unvermögen, sich seines <button class="term" data-k="verstand" type="button">Verstandes</button> ohne Leitung eines anderen zu bedienen. <button class="term" data-k="selbstverschuldet" type="button"><em>Selbstverschuldet</em></button> ist diese<span class="ln" aria-label="Zeile 5">5</span>Unmündigkeit, wenn die Ursache derselben nicht am Mangel des Verstandes, sondern der <button class="term" data-k="entschliessung" type="button">Entschließung</button> und des Mutes liegt, sich seiner ohne Leitung eines andern zu bedienen. <button class="term" data-k="sapere" type="button">Sapere aude!</button> Habe Mut, dich deines <em>eigenen</em> Verstandes zu bedienen! ist also der<span class="ln" aria-label="Zeile 10">10</span>Wahlspruch der Aufklärung.</p>
+
+<p><button class="term" data-k="faulheit" type="button">Faulheit und Feigheit</button> sind die Ursachen, warum ein so großer Teil der Menschen, nachdem sie die Natur längst von fremder Leitung frei gesprochen (<button class="term" data-k="naturaliter" type="button">naturaliter maiorennes</button>), dennoch gerne zeitlebens unmündig<span class="ln" aria-label="Zeile 15">15</span>bleiben; und warum es anderen so leicht wird, sich zu deren <button class="term" data-k="vormuender" type="button">Vormündern</button> aufzuwerfen. Es ist so bequem, unmündig zu sein. Habe ich ein Buch, das für mich Verstand hat, einen <button class="term" data-k="seelsorger" type="button">Seelsorger</button>, der für mich Gewissen hat, einen Arzt, der für mich die <button class="term" data-k="diaet" type="button">Diät</button> beurteilt, u.s.w.:<span class="ln" aria-label="Zeile 20">20</span>so brauche ich mich ja nicht selbst zu bemühen. Ich habe nicht nötig zu denken, wenn ich nur bezahlen kann; andere werden das <button class="term" data-k="verdriesslich" type="button">verdrießliche</button> Geschäft schon für mich übernehmen.</p>
+
+<p>Es ist also für jeden einzelnen Menschen schwer, sich<span class="ln" aria-label="Zeile 25">25</span>aus der ihm beinahe zur Natur gewordenen Unmündigkeit herauszuarbeiten. Er hat sie sogar lieb gewonnen und ist <button class="term" data-k="vorderhand" type="button">vor der Hand</button> wirklich unfähig, sich seines eigenen Verstandes zu bedienen, weil man ihn niemals den Versuch davon machen ließ. <button class="term" data-k="satzungen" type="button">Satzungen und<span class="ln" aria-label="Zeile 30">30</span>Formeln</button>, diese mechanischen Werkzeuge eines vernünftigen Gebrauchs oder vielmehr Missbrauchs seiner <button class="term" data-k="naturgaben" type="button">Naturgaben</button>, sind die <button class="term" data-k="fussschellen" type="button">Fußschellen</button> einer immerwährenden Unmündigkeit. Wer sie auch abwürfe, würde dennoch auch über den schmalesten Graben einen nur<span class="ln" aria-label="Zeile 35">35</span>unsicheren Sprung tun, weil er zu dergleichen freier Bewegung nicht gewöhnt ist. Daher gibt es nur wenige, denen es gelungen ist, durch eigene Bearbeitung ihres Geistes sich aus der Unmündigkeit heraus zu wickeln [...]. Zu dieser Aufklärung aber wird nichts erfordert<span class="ln" aria-label="Zeile 40">40</span>als Freiheit; und zwar die <button class="term" data-k="unschaedlich" type="button">unschädlichste</button> unter allem, was nur Freiheit heißen mag, nämlich die: von seiner Vernunft in allen Stücken <button class="term" data-k="oeffentlich" type="button">öffentlichen Gebrauch</button> zu machen.</p>
+          </div>
+          <p class="src">Immanuel Kant, <i>Was ist Aufklärung?</i>, S. 35</p>
+          <p class="note">Die kleinen Zahlen zeigen, wo im Lehrbuch eine Zeile beginnt (Z. 5, 10, 15 …). Zeilenangaben auf dieser Seite beziehen sich darauf.</p>
+        </article>
+
+        <div class="card task">
+          <label class="lbl" for="ta-erst">Erster Eindruck</label>
+          <p style="margin:4px 0 0">Welcher Satz irritiert, überrascht oder gefällt dir am meisten? Notiere die Zeilenangabe und deinen Gedanken dazu.</p>
+          <textarea id="ta-erst" class="ta" placeholder="z. B. Z. 16–17: …"></textarea>
+        </div>
+      </div>
+
+      <aside class="gloss" id="gloss" aria-live="polite" aria-label="Begriffserklärung">
+        <div class="gloss-title"><p class="eyebrow">Begriff</p><button class="btn ghost small" id="glossClose" type="button">Schließen</button></div>
+        <p class="ph">Tippe im Text auf ein unterstrichenes Wort. Hier steht dann, was es bedeutet.</p>
+        <div class="content">
+          <h4 id="glossT"></h4>
+          <p class="zz" id="glossZ"></p>
+          <p id="glossB" style="margin:0"></p>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- 3 VERSTEHEN -->
+  <section class="sec" id="sec-verstehen" hidden aria-labelledby="h-verstehen">
+    <h2 id="h-verstehen">Den Text verstehen</h2>
+
+    <h3>Kurz eingeordnet</h3>
+    <div class="facts">
+      <div><h4>Wer</h4><p>Immanuel Kant (1724–1804), Philosoph aus Königsberg.</p></div>
+      <div><h4>Anlass</h4><p>1783 fragte der Berliner Prediger Johann Friedrich Zöllner in einer Fußnote der <i>Berlinischen Monatsschrift</i>: »Was ist Aufklärung?« Kant antwortete 1784 in derselben Zeitschrift.</p></div>
+      <div><h4>Zeit</h4><p>Aufklärung im 18. Jahrhundert. In Preußen regierte Friedrich II. Kritik an Autoritäten und der Glaube an die Vernunft prägten die Debatten.</p></div>
+      <div><h4>Der Wahlspruch</h4><p>»Sapere aude« geht auf den römischen Dichter Horaz zurück. Kant macht den Satz zum Motto der Aufklärung.</p></div>
+    </div>
+
+    <hr class="rule">
+    <h3>Der Gedankengang in vier Schritten</h3>
+    <p>Tippe auf einen Schritt. Du siehst den Textbeleg und eine Erklärung in eigenen Worten.</p>
+    <div class="thought">
+      <details open>
+        <summary><span class="n">1</span>Das Problem: Menschen bleiben unmündig<span class="chip zr">Z. 1–10</span></summary>
+        <div class="in">
+          <blockquote>»Aufklärung ist der Ausgang des Menschen aus seiner selbst verschuldeten Unmündigkeit.« (Z. 1–2)</blockquote>
+          <p>Wer sich nur auf das Denken anderer verlässt, obwohl er selbst denken könnte, ist unmündig. Das liegt nicht an fehlendem Verstand, sondern an fehlendem Mut. Darum fordert Kant: »Sapere aude!«</p>
+        </div>
+      </details>
+      <details>
+        <summary><span class="n">2</span>Die Ursachen: Faulheit, Feigheit, Bequemlichkeit<span class="chip zr">Z. 11–23</span></summary>
+        <div class="in">
+          <blockquote>»Es ist so bequem, unmündig zu sein.« (Z. 16–17)</blockquote>
+          <p>Andere nehmen mir das Denken ab: ein Buch, ein Seelsorger, ein Arzt. Dann muss ich mich nicht anstrengen und nichts riskieren. Vormünder haben leichtes Spiel.</p>
+        </div>
+      </details>
+      <details>
+        <summary><span class="n">3</span>Die Hindernisse: Gewohnheit und feste Formeln<span class="chip zr">Z. 24–39</span></summary>
+        <div class="in">
+          <blockquote>»Satzungen und Formeln […] sind die Fußschellen einer immerwährenden Unmündigkeit.« (Z. 29–33)</blockquote>
+          <p>Wer nie geübt hat, selbst zu denken, hat es schwer. Wer nur fertige Regeln befolgt, bleibt abhängig. Darum schaffen es nur wenige allein.</p>
+        </div>
+      </details>
+      <details>
+        <summary><span class="n">4</span>Der Weg: Freiheit zum öffentlichen Vernunftgebrauch<span class="chip zr">Z. 39–43</span></summary>
+        <div class="in">
+          <blockquote>»Zu dieser Aufklärung aber wird nichts erfordert als Freiheit […]: von seiner Vernunft in allen Stücken öffentlichen Gebrauch zu machen.« (Z. 39–43)</blockquote>
+          <p>Aufklärung braucht vor allem eine Freiheit, die niemandem schadet: selbst zu denken und das Gedachte öffentlich zu äußern und zu diskutieren.</p>
+        </div>
+      </details>
+    </div>
+    <p class="note" style="margin-top:12px">Im Lehrbuch endet der Auszug hier. Im weiteren Aufsatz unterscheidet Kant den »öffentlichen« vom »privaten« Gebrauch der Vernunft. Das gehört nicht zu M2.</p>
+
+    <hr class="rule">
+    <h3>Schlüsselbegriffe in eigenen Worten</h3>
+    <p>Schreibe zuerst in das Feld, was der Begriff bedeutet. Danach kannst du den Vorschlag zum Vergleich anzeigen.</p>
+    <div class="grid" id="begGrid"></div>
+
+    <hr class="rule">
+    <h3>Übung: Sinnabschnitte zuordnen</h3>
+    <p>Welche Aufgabe hat jeder Abschnitt im Gedankengang? Wähle für jeden Abschnitt eine Kategorie und klicke auf »Prüfen«. Wenn etwas nicht stimmt, bekommst du einen Hinweis und darfst deine Antwort ändern.</p>
+    <div class="helpbox">
+      <h4>So erkennst du die Kategorien</h4>
+      <ul>
+        <li><b>Begriffsklärung:</b> Kant erklärt, was ein Wort bedeutet. Typisch sind Sätze mit »ist« oder »heißt«.</li>
+        <li><b>Appell:</b> Kant fordert direkt zum Handeln auf, oft mit Ausrufezeichen.</li>
+        <li><b>Ursachen:</b> Kant nennt Gründe dafür, dass Menschen unmündig bleiben.</li>
+        <li><b>Hindernisse:</b> Kant zeigt, was den Ausweg aus der Unmündigkeit schwer macht.</li>
+        <li><b>Weg zur Aufklärung:</b> Kant sagt, was nötig ist, damit Aufklärung gelingt.</li>
+      </ul>
+    </div>
+    <div class="card" id="chunkBox"></div>
+  </section>
+
+  <!-- 4 QUIZ -->
+  <section class="sec" id="sec-quiz" hidden aria-labelledby="h-quiz">
+    <h2 id="h-quiz">Quiz</h2>
+    <p class="lead">Neun Aufgaben zum Text, von Wiedergeben (AFB I) bis Beurteilen (AFB III). Nach jeder Aufgabe bekommst du eine Erklärung mit Zeilenangabe.</p>
+    <details class="look"><summary>Text zum Nachschlagen</summary><div class="kant small" id="quizText"></div></details>
+    <div id="quizBox"></div>
+  </section>
+
+  <!-- 5 TRANSFER -->
+  <section class="sec" id="sec-transfer" hidden aria-labelledby="h-transfer">
+    <h2 id="h-transfer">Transfer: Kant und dein Alltag</h2>
+    <p class="lead">Kant schrieb für Leute im Jahr 1784. Trotzdem klingen seine Beispiele vertraut. Hier prüfst du, wo seine Gedanken heute auftauchen und ob sie dich überzeugen.</p>
+
+    <h3 style="margin-top:28px">Kants Beispiele heute</h3>
+    <p>Überlege zuerst selbst, wo dir das heute begegnet. Schreibe ein Beispiel auf. Danach kannst du dir den Vorschlag ansehen.</p>
+    <div class="cmp" id="heuteGrid"></div>
+
+    <hr class="rule">
+    <h3>Mündig oder bequem?</h3>
+    <p>Vier Situationen. Such dir die Antwort aus, die am ehesten zu dir passt. Es gibt keine Punkte, nur Rückfragen im Sinne Kants.</p>
+    <div id="sitBox"></div>
+    <div class="card">
+      <h4>Kants Prüffragen für dich</h4>
+      <ul class="goals" style="margin-top:8px">
+        <li><span>1.</span><span>Habe ich selbst nachgedacht, bevor ich etwas übernommen habe?</span></li>
+        <li><span>2.</span><span>Könnte ich meine Entscheidung begründen, auch ohne die Quelle?</span></li>
+        <li><span>3.</span><span>Schweige oder passe ich mich an, weil es bequem ist oder weil ich Angst habe?</span></li>
+      </ul>
+    </div>
+
+    <hr class="rule">
+    <h3>Beurteilen: Ist »Sapere aude!« heute noch aktuell?</h3>
+    <p><b>Aufgabe (AFB III):</b> Beurteile, ob Kants Forderung »Habe Mut, dich deines eigenen Verstandes zu bedienen!« heute noch aktuell ist.</p>
+    <p>Tippe auf die Argumente, die dich überzeugen. Sie helfen dir bei deinem Urteil.</p>
+    <div class="args" id="argBox"></div>
+    <label class="lbl" for="ta-urteil" style="margin-top:16px">Dein Urteil</label>
+    <p class="note" style="margin-top:2px">Mit den Satzanfängen kommst du schneller in den Text. Mindestens fünf Sätze.</p>
+    <div class="starters" id="starters"></div>
+    <textarea id="ta-urteil" class="ta" style="min-height:180px" placeholder="Kants Forderung ist heute (noch) aktuell, weil …"></textarea>
+
+    <hr class="rule">
+    <h3>Rückblick</h3>
+    <p class="rueck" id="rueck"></p>
+    <div class="quote">Mündig sein heißt nicht, nie Hilfe zu nutzen. Es heißt, selbst zu prüfen, selbst zu urteilen und dafür Verantwortung zu übernehmen.<small>Merksatz zum Weiterdenken, formuliert im Anschluss an Kant</small></div>
+    <div class="card">
+      <h4>Meine Ergebnisse</h4>
+      <p style="margin-top:4px">Deine Eingaben bleiben nur auf diesem Gerät. Wenn du sie abgeben sollst, kopiere sie hier und füge sie in das Programm deiner Lehrkraft ein.</p>
+      <div class="bar"><button class="btn" id="copyBtn" type="button">Zusammenfassung kopieren</button></div>
+      <p class="msg" id="copyMsg" role="status"></p>
+      <textarea id="sumOut" class="ta" style="min-height:160px" readonly hidden aria-label="Zusammenfassung zum Kopieren"></textarea>
+    </div>
+  </section>
+
+  <div class="pager">
+    <button class="btn ghost" id="prevBtn" type="button">Zurück</button>
+    <button class="btn" id="nextBtn" type="button">Weiter</button>
+  </div>
+</main>
+
+<footer class="wrap foot">
+  <p class="msg"><button class="btn ghost small" id="resetBtn" type="button">Meine Eingaben auf diesem Gerät löschen</button></p>
+</footer>
+
+<script>
+(function(){
+'use strict';
+document.documentElement.lang='de';
+var $=function(s,r){return (r||document).querySelector(s)};
+var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+function el(tag,attrs){
+  var e=document.createElement(tag);
+  attrs=attrs||{};
+  Object.keys(attrs).forEach(function(k){
+    var v=attrs[k];
+    if(v===false||v==null)return;
+    if(k==='class')e.className=v;
+    else if(k==='html')e.innerHTML=v;
+    else if(v===true)e.setAttribute(k,'');
+    else e.setAttribute(k,v);
+  });
+  for(var i=2;i<arguments.length;i++){
+    var kids=[].concat(arguments[i]);
+    kids.forEach(function(k){ if(k==null||k===false)return; e.appendChild(k.nodeType?k:document.createTextNode(String(k))); });
+  }
+  return e;
+}
+
+/* ---------- Speicher (nur lokal, nie Pflicht) ---------- */
+var KEY='kant-aufklaerung-v1', S={};
+try{S=JSON.parse(localStorage.getItem(KEY)||'{}')||{}}catch(e){S={}}
+var tmr; function save(){clearTimeout(tmr);tmr=setTimeout(function(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}},250)}
+S.mine=S.mine||{}; S.beg=S.beg||{}; S.sit=S.sit||{}; S.args=S.args||{}; S.tags=S.tags||{};
+
+/* ---------- Navigation ---------- */
+var STEPS=['einstieg','text','verstehen','quiz','transfer'];
+var LABEL={einstieg:'Einstieg',text:'Text lesen',verstehen:'Verstehen',quiz:'Quiz',transfer:'Transfer'};
+var seen={};
+function go(name){
+  if(STEPS.indexOf(name)<0)name='einstieg';
+  var idx=STEPS.indexOf(name); seen[name]=true;
+  STEPS.forEach(function(s,i){
+    $('#sec-'+s).hidden=(s!==name);
+    var b=$('#stp-'+s);
+    if(s===name)b.setAttribute('aria-current','step');else b.removeAttribute('aria-current');
+    b.classList.toggle('seen',!!seen[s]&&s!==name);
+  });
+  $('#progFill').style.width=((idx+1)/STEPS.length*100)+'%';
+  $('#prevBtn').hidden=(idx===0);
+  var nb=$('#nextBtn'); nb.hidden=(idx===STEPS.length-1);
+  if(idx<STEPS.length-1)nb.textContent='Weiter: '+LABEL[STEPS[idx+1]];
+  if(idx>0)$('#prevBtn').textContent='Zurück: '+LABEL[STEPS[idx-1]];
+  closeGloss();
+  var h=$('.top').offsetHeight; if(window.scrollY>h)window.scrollTo(0,h);
+  if(name==='transfer')renderRueck();
+}
+function nav(name){
+  try{ if(location.hash.slice(1)===name)go(name); else location.hash=name; }catch(e){ go(name); }
+}
+$$('.stp').forEach(function(b){b.addEventListener('click',function(){nav(b.dataset.s)})});
+$('#prevBtn').addEventListener('click',function(){var i=STEPS.indexOf(current());nav(STEPS[Math.max(0,i-1)])});
+$('#nextBtn').addEventListener('click',function(){var i=STEPS.indexOf(current());nav(STEPS[Math.min(STEPS.length-1,i+1)])});
+function current(){var c=$('.stp[aria-current="step"]');return c?c.dataset.s:'einstieg'}
+window.addEventListener('hashchange',function(){go(location.hash.slice(1))});
+
+/* ---------- Einstieg ---------- */
+var EIN=[
+ ['Ich lasse mir von KI oder aus dem Internet eine fertige Erklärung geben und lerne sie.','Das spart Zeit. Offen bleibt: Prüfst du, ob die Erklärung stimmt, und könntest du sie ohne Hilfe wiedergeben?'],
+ ['Ich lese zuerst mehrere Quellen und vergleiche sie.','Du prüfst, statt zu übernehmen. Das kostet Zeit, aber du entscheidest selbst, was du glaubst.'],
+ ['Ich überlege erst, was ich schon weiß, und suche dann gezielt nach Lücken.','Du denkst zuerst selbst und holst dir dann Hilfe. Das ist anstrengend, und genau darum geht es bei Kant gleich.']
+];
+function renderPoll(){
+  var box=$('#pollOpts'), fb=$('#pollFb'); box.innerHTML='';
+  EIN.forEach(function(o,i){
+    var b=el('button',{type:'button',class:'opt single','aria-pressed':String(S.ein===i)},el('span',{class:'box'}),el('span',{},o[0]));
+    b.addEventListener('click',function(){S.ein=i;save();renderPoll()});
+    box.appendChild(b);
+  });
+  if(S.ein==null){fb.hidden=true}else{fb.hidden=false;fb.textContent=EIN[S.ein][1]+' Hier gibt es keine falsche Antwort. Am Ende der Seite kommst du auf deine Wahl zurück.'}
+}
+
+/* ---------- Textschritt ---------- */
+var G={
+ aufklaerung:{t:'Aufklärung',z:'Z. 1',b:'Geistige Bewegung des 18. Jahrhunderts. Menschen sollen sich von Vorurteilen und Autoritäten lösen und ihren Verstand selbst gebrauchen. »Ausgang« heißt hier: Herausgehen, Befreiung.'},
+ unmuendig:{t:'Unmündigkeit',z:'Z. 1–4',b:'»Mündig« kommt von altem »Munt«: Schutz, Vormundschaft. Wer unmündig ist, steht unter dem Schutz und der Entscheidung eines anderen, wie ein Kind unter seinen Eltern. Kant meint: Erwachsene lassen andere für sich denken, obwohl sie es selbst könnten.'},
+ verstand:{t:'Verstand',z:'Z. 3',b:'Hier die Fähigkeit, selbst zu denken, zu urteilen und Dinge zu begreifen. Kant gebraucht in diesem Auszug Verstand und Vernunft fast gleichbedeutend.'},
+ selbstverschuldet:{t:'selbstverschuldet',z:'Z. 4–8',b:'Die Ursache liegt bei einem selbst. Kant sagt nicht: Die Menschen sind dumm. Er sagt: Es fehlt ihnen an Entschlusskraft und Mut.'},
+ entschliessung:{t:'Entschließung',z:'Z. 6',b:'Entschlusskraft: sich entscheiden und es dann auch wirklich tun.'},
+ sapere:{t:'Sapere aude!',z:'Z. 8–10',b:'Lateinisch, etwa: »Wage es, klug zu sein.« Der Satz stammt vom römischen Dichter Horaz. Kant übersetzt ihn frei: »Habe Mut, dich deines eigenen Verstandes zu bedienen!«'},
+ faulheit:{t:'Faulheit und Feigheit',z:'Z. 11',b:'Kants zwei Gründe. Faulheit: Ich will mich nicht anstrengen. Feigheit: Ich traue mich nicht, selbst zu entscheiden oder anderen zu widersprechen.'},
+ naturaliter:{t:'naturaliter maiorennes',z:'Z. 13–14',b:'Lateinisch: »von Natur aus volljährig«. Gemeint: Die Natur hat die Menschen längst fähig gemacht, selbst zu denken. Sie bräuchten keine Aufsicht mehr.'},
+ vormuender:{t:'Vormünder',z:'Z. 15–16',b:'Im Recht entscheidet ein Vormund für jemanden, der unmündig ist. Kant meint es bildlich: Personen oder Einrichtungen, die anderen das Denken und Entscheiden abnehmen. »Sich aufwerfen« heißt: sich selbst dazu machen.'},
+ seelsorger:{t:'Seelsorger',z:'Z. 18',b:'Pfarrer oder Geistlicher, der sich um die seelischen und religiösen Fragen anderer kümmert. Das Beispiel: Ich lasse ihn für mich entscheiden, was mein Gewissen verlangt.'},
+ diaet:{t:'Diät',z:'Z. 19',b:'Im 18. Jahrhundert die ganze Lebensweise (Essen, Bewegung, Schlaf), nicht nur das Abnehmen. Der Arzt sagt mir, wie ich zu leben habe, und ich frage nicht nach.'},
+ verdriesslich:{t:'verdrießlich',z:'Z. 22',b:'Lästig, unangenehm, mühsam. »Das verdrießliche Geschäft« ist das Nachdenken.'},
+ vorderhand:{t:'vor der Hand',z:'Z. 27',b:'Zunächst, im Augenblick.'},
+ satzungen:{t:'Satzungen und Formeln',z:'Z. 29–30',b:'Feste Vorschriften und auswendig gelernte Sätze, zum Beispiel kirchliche Glaubenssätze und Verhaltensregeln, die man ohne eigenes Nachdenken befolgt.'},
+ naturgaben:{t:'Naturgaben',z:'Z. 31–32',b:'Die Anlagen und Fähigkeiten, die man von Natur aus hat. Hier vor allem der Verstand.'},
+ fussschellen:{t:'Fußschellen',z:'Z. 32',b:'Fesseln für die Füße. Das Bild: Feste Regeln halten mich fest, sodass ich nicht frei gehen, also denken kann.'},
+ unschaedlich:{t:'die unschädlichste Freiheit',z:'Z. 40–41',b:'Kant meint: die harmloseste aller Freiheiten. Sie verlangt nur Denken und Reden, keinen Aufstand.'},
+ oeffentlich:{t:'öffentlicher Gebrauch der Vernunft',z:'Z. 41–43',b:'Frei sein, seine Gedanken vor anderen zu äußern, zu schreiben und zu diskutieren. Im weiteren Aufsatz stellt Kant dem den »privaten« Gebrauch in einem Amt gegenüber. Das druckt das Lehrbuch nicht ab.'}
+};
+function openGloss(k){
+  var g=G[k]; if(!g)return;
+  $('#glossT').textContent=g.t; $('#glossZ').textContent=g.z; $('#glossB').textContent=g.b;
+  $('#gloss').classList.add('open','filled');
+  $$('.term').forEach(function(t){t.classList.toggle('on',t.dataset.k===k)});
+}
+function closeGloss(){ $('#gloss').classList.remove('open'); $$('.term.on').forEach(function(t){t.classList.remove('on')}); }
+$('#kant').addEventListener('click',function(e){var b=e.target.closest('.term'); if(b)openGloss(b.dataset.k)});
+$('#glossClose').addEventListener('click',closeGloss);
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeGloss()});
+var zoom=1;
+function setZoom(z){zoom=Math.max(.85,Math.min(1.45,z));$('#kant').style.setProperty('--zoom',zoom)}
+$('#zMinus').addEventListener('click',function(){setZoom(zoom-.1)});
+$('#zPlus').addEventListener('click',function(){setZoom(zoom+.1)});
+$('#hlToggle').addEventListener('change',function(e){$('#kant').classList.toggle('nohl',!e.target.checked); if(!e.target.checked)closeGloss()});
+
+function bindTA(id,get,set){
+  var t=$('#'+id); if(!t)return; t.value=get()||'';
+  t.addEventListener('input',function(){set(t.value);save()});
+}
+bindTA('ta-erst',function(){return S.erst},function(v){S.erst=v});
+
+/* ---------- Verstehen ---------- */
+var BEG=[
+ {t:'Unmündigkeit',z:'Z. 2–4',q:'»das Unvermögen, sich seines Verstandes ohne Leitung eines anderen zu bedienen«',a:'Ich denke und entscheide nicht selbst, sondern lasse andere das für mich tun.'},
+ {t:'selbstverschuldet',z:'Z. 5–7',q:'»nicht am Mangel des Verstandes, sondern der Entschließung und des Mutes«',a:'Es liegt nicht daran, dass ich nicht denken könnte. Mir fehlt der Entschluss oder der Mut, es zu tun.'},
+ {t:'Faulheit und Feigheit',z:'Z. 11',q:'»Faulheit und Feigheit sind die Ursachen«',a:'Faulheit: Ich will mich nicht anstrengen. Feigheit: Ich habe Angst, Fehler zu machen oder aus der Reihe zu fallen.'},
+ {t:'Vormünder',z:'Z. 15–16',q:'»warum es anderen so leicht wird, sich zu deren Vormündern aufzuwerfen«',a:'Menschen oder Einrichtungen, die mir sagen, was ich denken und tun soll. Sie haben leichtes Spiel, wenn ich es bequem finde.'},
+ {t:'Satzungen und Formeln',z:'Z. 29–33',q:'»die Fußschellen einer immerwährenden Unmündigkeit«',a:'Starre Vorschriften und Standardsätze, die ich ungeprüft übernehme. Sie halten mich abhängig.'},
+ {t:'öffentlicher Gebrauch der Vernunft',z:'Z. 41–43',q:'»von seiner Vernunft in allen Stücken öffentlichen Gebrauch zu machen«',a:'Frei denken, schreiben und diskutieren dürfen, vor anderen und nicht nur im eigenen Kopf.'}
+];
+(function(){
+  var grid=$('#begGrid');
+  BEG.forEach(function(b,i){
+    var id='ta-beg-'+i;
+    var ta=el('textarea',{id:id,class:'ta',style:'min-height:72px;margin-top:0',placeholder:'Was bedeutet das? Schreibe in eigenen Worten …'});
+    var ans=el('p',{class:'a',hidden:true},el('b',{},'Vorschlag zum Vergleich: '),b.a,el('br'),el('i',{},'Was ist ähnlich? Was fehlt bei dir?'));
+    var btn=el('button',{type:'button',class:'btn ghost small',disabled:true},'Vorschlag zeigen');
+    var hint=el('p',{class:'hint'},'Schreibe zuerst deine Idee auf, dann kannst du den Vorschlag ansehen.');
+    function upd(){
+      var ok=ta.value.trim().length>=8;
+      btn.disabled=!ok;
+      hint.hidden=ok||!ans.hidden;
+    }
+    btn.addEventListener('click',function(){var open=ans.hidden;ans.hidden=!open;btn.textContent=open?'Vorschlag verbergen':'Vorschlag zeigen';btn.setAttribute('aria-expanded',String(open));upd()});
+    ta.value=S.beg[i]||'';
+    ta.addEventListener('input',function(){S.beg[i]=ta.value;save();upd()});
+    grid.appendChild(el('article',{class:'rv'},
+      el('div',{},el('span',{class:'chip'},b.z)),
+      el('h4',{},b.t),
+      el('p',{class:'q'},'Kant: '+b.q),
+      el('label',{for:id,class:'lbl',style:'font-size:.9rem'},'Deine Erklärung'),
+      ta,btn,hint,ans));
+    upd();
+  });
+})();
+
+var CATS=[['def','Begriffsklärung'],['app','Appell'],['urs','Ursachen'],['hin','Hindernisse'],['weg','Weg zur Aufklärung']];
+function catName(k){for(var i=0;i<CATS.length;i++)if(CATS[i][0]===k)return CATS[i][1];return k}
+var CHUNKS=[
+ {z:'Z. 1–4',t:'Aufklärung ist der Ausgang des Menschen aus seiner selbst verschuldeten Unmündigkeit. Unmündigkeit ist das Unvermögen, sich seines Verstandes ohne Leitung eines anderen zu bedienen.',c:'def',h:'Achte auf das Wort »ist«. Kant sagt hier, was zwei Wörter bedeuten.',w:'Kant erklärt zuerst, was Aufklärung und Unmündigkeit bedeuten.'},
+ {z:'Z. 4–8',t:'Selbstverschuldet ist diese Unmündigkeit, wenn die Ursache derselben nicht am Mangel des Verstandes, sondern der Entschließung und des Mutes liegt, sich seiner ohne Leitung eines andern zu bedienen.',c:'def',h:'Der Abschnitt beantwortet die Frage: Was heißt »selbstverschuldet«? Es geht um die Bedeutung eines Wortes.',w:'Hier klärt Kant das Wort »selbstverschuldet«. Die eigentlichen Ursachen nennt er erst ab Z. 11.'},
+ {z:'Z. 8–10',t:'Sapere aude! Habe Mut, dich deines eigenen Verstandes zu bedienen! ist also der Wahlspruch der Aufklärung.',c:'app',h:'Achte auf das Ausrufezeichen. Beschreibt Kant hier etwas oder fordert er etwas?',w:'Ein direkter Aufruf zum Handeln: der Wahlspruch der Aufklärung.'},
+ {z:'Z. 11–16',t:'Faulheit und Feigheit sind die Ursachen, warum ein so großer Teil der Menschen, nachdem sie die Natur längst von fremder Leitung frei gesprochen (naturaliter maiorennes), dennoch gerne zeitlebens unmündig bleiben; und warum es anderen so leicht wird, sich zu deren Vormündern aufzuwerfen.',c:'urs',h:'Frage dich: Warum bleiben Menschen unmündig? Hier stehen die Gründe.',w:'Kant nennt die Gründe: Faulheit und Feigheit. Die Vormünder haben es leicht.'},
+ {z:'Z. 16–23',t:'Es ist so bequem, unmündig zu sein. Habe ich ein Buch, das für mich Verstand hat, einen Seelsorger, der für mich Gewissen hat, einen Arzt, der für mich die Diät beurteilt, u.s.w.: so brauche ich mich ja nicht selbst zu bemühen. Ich habe nicht nötig zu denken, wenn ich nur bezahlen kann; andere werden das verdrießliche Geschäft schon für mich übernehmen.',c:'urs',h:'Die Beispiele zeigen, warum Menschen es sich bequem machen. Passt das eher zu den Gründen oder zu dem, was den Ausweg schwer macht?',w:'Bequemlichkeit, belegt mit drei Beispielen. Das Denken wird abgegeben.'},
+ {z:'Z. 24–29',t:'Es ist also für jeden einzelnen Menschen schwer, sich aus der ihm beinahe zur Natur gewordenen Unmündigkeit herauszuarbeiten. Er hat sie sogar lieb gewonnen und ist vor der Hand wirklich unfähig, sich seines eigenen Verstandes zu bedienen, weil man ihn niemals den Versuch davon machen ließ.',c:'hin',h:'Achte auf die Wörter »schwer« und »unfähig«. Es geht darum, was den Ausweg erschwert.',w:'Gewöhnung und fehlende Übung machen den Ausweg schwer.'},
+ {z:'Z. 29–36',t:'Satzungen und Formeln, diese mechanischen Werkzeuge eines vernünftigen Gebrauchs oder vielmehr Missbrauchs seiner Naturgaben, sind die Fußschellen einer immerwährenden Unmündigkeit. Wer sie auch abwürfe, würde dennoch auch über den schmalesten Graben einen nur unsicheren Sprung tun, weil er zu dergleichen freier Bewegung nicht gewöhnt ist.',c:'hin',h:'Fußschellen und ein unsicherer Sprung: Beide Bilder zeigen, was jemanden festhält oder bremst.',w:'Feste Formeln als Fußschellen und der unsichere Sprung: weitere Hindernisse.'},
+ {z:'Z. 36–39',t:'Daher gibt es nur wenige, denen es gelungen ist, durch eigene Bearbeitung ihres Geistes sich aus der Unmündigkeit heraus zu wickeln […].',c:'hin',h:'»Daher« zeigt eine Folge. Wovon hängt es ab, dass es nur wenige schaffen?',w:'Folge der Hindernisse: Nur wenige schaffen den Weg allein.'},
+ {z:'Z. 39–43',t:'Zu dieser Aufklärung aber wird nichts erfordert als Freiheit; und zwar die unschädlichste unter allem, was nur Freiheit heißen mag, nämlich die: von seiner Vernunft in allen Stücken öffentlichen Gebrauch zu machen.',c:'weg',h:'Achte auf das Wort »erfordert«. Was braucht Aufklärung, damit sie gelingt?',w:'Kant nennt, was Aufklärung braucht: Freiheit zum öffentlichen Vernunftgebrauch.'}
+];
+var chunkChecked=false, chunkReveal=false;
+function chunkState(i,c){var sel=S.tags[i]; if(!sel)return 'open'; return sel===c.c?'ok':'bad'}
+function renderChunks(){
+  var box=$('#chunkBox'); box.innerHTML='';
+  CHUNKS.forEach(function(c,i){
+    var st=chunkState(i,c);
+    var row=el('div',{class:'chunk'},el('div',{class:'z'},c.z),el('p',{class:'tx'},c.t));
+    var cats=el('div',{class:'cats',role:'group','aria-label':'Kategorie für '+c.z});
+    CATS.forEach(function(k){
+      var sel=S.tags[i]===k[0], cls='cat';
+      if(chunkChecked&&sel)cls+=(st==='ok'?' ok':' bad');
+      if(chunkReveal&&k[0]===c.c&&st!=='ok')cls+=' key';
+      var b=el('button',{type:'button',class:cls,'aria-pressed':String(sel)},(chunkChecked&&sel?(st==='ok'?'✓ ':'✕ '):'')+k[1]);
+      b.addEventListener('click',function(){S.tags[i]=k[0];save();renderChunks()});
+      cats.appendChild(b);
+    });
+    row.appendChild(cats);
+    if(chunkChecked&&st!=='open'){
+      if(st==='ok')row.appendChild(el('p',{class:'why ok'},el('b',{},'Richtig. '),c.w));
+      else if(chunkReveal)row.appendChild(el('p',{class:'why bad'},el('b',{},'Lösung: '+catName(c.c)+'. '),c.w));
+      else row.appendChild(el('p',{class:'why bad'},el('b',{},'Noch nicht ganz. '),'Hinweis: '+c.h+' Du kannst deine Antwort ändern.'));
+    }
+    box.appendChild(row);
+  });
+  var done=CHUNKS.filter(function(c,i){return S.tags[i]}).length;
+  var right=CHUNKS.filter(function(c,i){return S.tags[i]===c.c}).length;
+  var bar=el('div',{class:'bar'});
+  if(!chunkChecked){
+    var cb=el('button',{type:'button',class:'btn',disabled:done<1},'Prüfen');
+    cb.addEventListener('click',function(){chunkChecked=true;renderChunks()});
+    bar.appendChild(cb);
+    bar.appendChild(el('span',{class:'time'},done+' von '+CHUNKS.length+' zugeordnet. Du kannst auch schon mit weniger prüfen.'));
+  }else{
+    bar.appendChild(el('b',{},right+' von '+CHUNKS.length+' richtig'+(right===CHUNKS.length?'. Alles geschafft.':'')));
+    if(right<CHUNKS.length&&!chunkReveal){
+      var rv=el('button',{type:'button',class:'btn ghost'},'Lösung anzeigen');
+      rv.addEventListener('click',function(){chunkReveal=true;renderChunks()});
+      bar.appendChild(rv);
+    }
+    var rb=el('button',{type:'button',class:'btn ghost'},'Neu starten');
+    rb.addEventListener('click',function(){chunkChecked=false;chunkReveal=false;S.tags={};save();renderChunks()});
+    bar.appendChild(rb);
+  }
+  box.appendChild(bar);
+}
+
+/* ---------- Quiz ---------- */
+var QUIZ=[
+ {afb:1,type:'single',z:'Z. 2–4',p:'Wie erklärt Kant den Begriff »Unmündigkeit«?',
+  o:['Als das Unvermögen, sich seines Verstandes ohne Leitung eines anderen zu bedienen.','Als fehlende Volljährigkeit nach dem Gesetz.','Als Mangel an Bildung und Schulabschlüssen.','Als Pflicht, einer Obrigkeit zu gehorchen.'],a:0,
+  ex:'Kant gibt die Definition wörtlich in Z. 2–4. Gemeint ist nicht Dummheit und nicht das Alter. Es geht darum, dass jemand sein Denken und Entscheiden an andere abgibt.'},
+ {afb:2,type:'single',z:'Z. 4–8',p:'Kant nennt die Unmündigkeit »selbstverschuldet«. Was meint er damit?',
+  o:['Die Ursache liegt nicht im Mangel an Verstand, sondern im Mangel an Entschlusskraft und Mut.','Die Menschen sind nicht intelligent genug, um selbst zu denken.','Andere haben die Menschen absichtlich dumm gehalten.','Unmündige haben sich nach dem Gesetz strafbar gemacht.'],a:0,
+  ex:'Z. 5–7: »nicht am Mangel des Verstandes, sondern der Entschließung und des Mutes«. Vormünder erleichtern es (Z. 15–16), aber der Grund liegt nach Kant bei einem selbst.'},
+ {afb:1,type:'single',z:'Z. 8–10',p:'In welchen Zeilen steht der Wahlspruch der Aufklärung?',
+  o:['Z. 1–2','Z. 8–10','Z. 24–26','Z. 39–43'],a:1,
+  ex:'»Sapere aude! Habe Mut, dich deines eigenen Verstandes zu bedienen!« steht in Z. 8–10. In Z. 1–2 steht die Definition von Aufklärung.'},
+ {afb:2,type:'multi',z:'Z. 11–29',p:'Welche Gründe nennt Kant im Text dafür, dass Menschen unmündig bleiben? Wähle alle richtigen aus.',
+  o:['Faulheit und Feigheit','Bequemlichkeit: Andere übernehmen das Denken','Gewöhnung: Man hat die Unmündigkeit lieb gewonnen','Fehlende Übung: Man ließ sie nie den Versuch machen','Ein angeborener Mangel an Verstand','Zu wenig Geld, um sich Bücher zu kaufen'],a:[0,1,2,3],
+  ex:'Richtig sind Z. 11 (Faulheit und Feigheit), Z. 16–17 (bequem), Z. 26–27 (lieb gewonnen) und Z. 28–29 (nie den Versuch machen lassen). Einen angeborenen Mangel schließt Kant aus (Z. 5–7). Das Geld erscheint nur im Beispiel: Wer bezahlen kann, lässt andere denken (Z. 20–22).'},
+ {afb:2,type:'match',z:'Z. 17–19',p:'Kant nennt drei Beispiele, wie andere für uns denken. Ordne zu: Was nimmt uns jeweils ab?',
+  items:['ein Buch','ein Seelsorger','ein Arzt'],opts:['das Urteil über die eigene Lebensweise (Diät)','das Gewissen','den Verstand','die Berufswahl'],a:[2,1,0],
+  ex:'Z. 17–19: Das Buch hat »Verstand« für mich, der Seelsorger »Gewissen«, der Arzt beurteilt meine »Diät«, also meine Lebensweise.'},
+ {afb:2,type:'single',z:'Z. 29–33',p:'Kant nennt »Satzungen und Formeln« die »Fußschellen einer immerwährenden Unmündigkeit«. Was meint dieses Bild?',
+  o:['Wer starre Vorschriften mechanisch befolgt, benutzt seinen Verstand nicht selbst und bleibt abhängig.','Alle Gesetze und Regeln sollen sofort abgeschafft werden.','Feste Regeln schützen davor, unmündig zu werden.','Unmündige sollen mit Strafen belegt werden.'],a:0,
+  ex:'Fußschellen binden die Füße, feste Formeln binden das Denken. Dass Kant jede Regel abschaffen will, steht hier nicht. Er kritisiert das mechanische, ungeprüfte Befolgen (»mechanische Werkzeuge«, Z. 29–31).'},
+ {afb:1,type:'tf',z:'ganzer Auszug',p:'Wahr oder falsch? Prüfe jede Aussage am Text.',
+  items:[
+   ['Nach Kant fehlt unmündigen Menschen der Verstand.',false,'Falsch, Z. 5–7: Es fehlen Entschlusskraft und Mut, nicht der Verstand.'],
+   ['Nach Kant gelingt es den meisten Menschen leicht, sich aus der Unmündigkeit zu befreien.',false,'Falsch, Z. 24–26 und Z. 36–39: Es ist schwer, nur wenige schaffen es.'],
+   ['Vormünder haben es leicht, weil viele Menschen es bequem finden, unmündig zu sein.',true,'Wahr, Z. 15–17.'],
+   ['Aufklärung braucht nach Kant vor allem die Freiheit, öffentlich von seiner Vernunft Gebrauch zu machen.',true,'Wahr, Z. 39–43.']
+  ]},
+ {afb:2,type:'single',z:'Z. 33–36',p:'Kant: Wer die Fußschellen abwürfe, täte »über den schmalesten Graben einen nur unsicheren Sprung«. Was folgt daraus?',
+  o:['Selbstständiges Denken muss geübt werden. Wer es nie gewohnt war, scheitert zunächst leicht.','Man sollte lieber unmündig bleiben, weil der Sprung zu gefährlich ist.','Aufklärung gelingt sofort und ohne Mühe.','Der Graben steht für eine Staatsgrenze, die man nicht überschreiten darf.'],a:0,
+  ex:'Z. 35–36: »weil er zu dergleichen freier Bewegung nicht gewöhnt ist«. Das Bild zeigt: Freies Denken ist eine Fähigkeit, die man üben muss. Es heißt nicht, dass man unmündig bleiben soll.'},
+ {afb:3,type:'single',z:'Z. 11–23',p:'Beurteile Kants These, Faulheit und Feigheit seien die Ursachen der Unmündigkeit. Welche Antwort würdigt die These und nennt zugleich eine Grenze?',
+  o:['Die These betont zu Recht die eigene Verantwortung. Sie blendet aber aus, dass nicht alle gleich gute Möglichkeiten zu Bildung und Information haben.','Die These stimmt vollständig. Äußere Umstände spielen für Mündigkeit keine Rolle.','Die These ist falsch, denn Verantwortung liegt nie beim Einzelnen.','Eine Beurteilung ist unmöglich, weil der Text von 1784 stammt.'],a:0,
+  ex:'Ein Urteil (AFB III) braucht Kriterien, Pro und Kontra und ein Fazit. Die erste Antwort würdigt Kants Stärke und nennt eine Einschränkung. Die anderen sind einseitig oder weichen aus.'}
+];
+var AFBT=['','AFB I · Wiedergeben','AFB II · Erklären','AFB III · Beurteilen'];
+var qi=0, finished=false, QS;
+function resetQuiz(){QS=QUIZ.map(function(){return {sel:null,done:false,ok:false}});qi=0;finished=false}
+resetQuiz();
+function ready(q,st){
+  if(q.type==='single')return st.sel!=null;
+  if(q.type==='multi')return !!(st.sel&&st.sel.length);
+  if(q.type==='match')return !!st.sel&&st.sel.length===q.items.length&&st.sel.every(function(v){return v!=null});
+  if(q.type==='tf')return !!st.sel&&st.sel.length===q.items.length&&st.sel.every(function(v){return v!=null});
+}
+function evaluate(q,st){
+  if(q.type==='single')return st.sel===q.a;
+  if(q.type==='multi'){var s=(st.sel||[]).slice().sort().join(),a=q.a.slice().sort().join();return s===a}
+  if(q.type==='match')return q.items.every(function(_,i){return st.sel[i]===q.a[i]});
+  if(q.type==='tf')return q.items.every(function(it,i){return st.sel[i]===it[1]});
+}
+function drawAnswer(q,st,body,onChange){
+  body.innerHTML='';
+  if(q.type==='single'||q.type==='multi'){
+    var multi=q.type==='multi', wrap=el('div',{class:'opts',role:'group'});
+    q.o.forEach(function(txt,i){
+      var selected=multi?(st.sel||[]).indexOf(i)>=0:st.sel===i, cls='opt '+(multi?'multi':'single'), mark='';
+      if(st.done){
+        var corr=multi?q.a.indexOf(i)>=0:q.a===i;
+        if(corr){cls+=' ok';mark='✓';if(!selected)cls+=' miss'}
+        else if(selected){cls+=' bad';mark='✕'}
+      }
+      var b=el('button',{type:'button',class:cls,'aria-pressed':String(selected),disabled:st.done},el('span',{class:'box'},mark),el('span',{},txt));
+      b.addEventListener('click',function(){
+        if(multi){var a=(st.sel||[]).slice();var p=a.indexOf(i);if(p>=0)a.splice(p,1);else a.push(i);st.sel=a}
+        else st.sel=i;
+        drawAnswer(q,st,body,onChange);
+      });
+      wrap.appendChild(b);
+    });
+    body.appendChild(wrap);
+  }
+  if(q.type==='match'){
+    st.sel=st.sel||q.items.map(function(){return null});
+    var m=el('div',{class:'match'});
+    q.items.forEach(function(it,i){
+      var ok=st.done&&st.sel[i]===q.a[i];
+      var row=el('div',{class:'mrow'+(st.done?(ok?' ok':' bad'):'')});
+      var id='m'+qi+'-'+i;
+      row.appendChild(el('label',{for:id,class:'lbl'},it));
+      var sel=el('select',{id:id,disabled:st.done},el('option',{value:''},'– auswählen –'));
+      q.opts.forEach(function(o,j){sel.appendChild(el('option',{value:String(j),selected:st.sel[i]===j},o))});
+      sel.addEventListener('change',function(){st.sel[i]=sel.value===''?null:+sel.value;onChange()});
+      row.appendChild(sel);
+      if(st.done&&!ok)row.appendChild(el('p',{class:'mx'},'Richtig: '+q.opts[q.a[i]]));
+      m.appendChild(row);
+    });
+    body.appendChild(m);
+  }
+  if(q.type==='tf'){
+    st.sel=st.sel||q.items.map(function(){return null});
+    q.items.forEach(function(it,i){
+      var row=el('div',{class:'tf'},el('p',{},it[0]));
+      var g=el('div',{class:'tfb',role:'group','aria-label':'Aussage '+(i+1)});
+      [['Wahr',true],['Falsch',false]].forEach(function(pair){
+        var selected=st.sel[i]===pair[1], cls='opt single', mark='';
+        if(st.done){
+          if(pair[1]===it[1]){cls+=' ok';mark='✓'}
+          else if(selected){cls+=' bad';mark='✕'}
+        }
+        var b=el('button',{type:'button',class:cls,'aria-pressed':String(selected),disabled:st.done},el('span',{class:'box'},mark),el('span',{},pair[0]));
+        b.addEventListener('click',function(){st.sel[i]=pair[1];drawAnswer(q,st,body,onChange)});
+        g.appendChild(b);
+      });
+      row.appendChild(g);
+      if(st.done)row.appendChild(el('p',{class:'tfx'},it[2]));
+      body.appendChild(row);
+    });
+  }
+  onChange();
+}
+function renderQuiz(){
+  var box=$('#quizBox'); box.innerHTML='';
+  if(finished){renderResult(box);return}
+  var q=QUIZ[qi], st=QS[qi];
+  var prog=el('div',{class:'qprog',role:'img','aria-label':'Aufgabe '+(qi+1)+' von '+QUIZ.length});
+  QUIZ.forEach(function(_,i){prog.appendChild(el('i',{class:(i===qi?'cur ':'')+(QS[i].done?(QS[i].ok?'ok':'bad'):'')}))});
+  box.appendChild(prog);
+  var card=el('div',{class:'card',style:'margin-top:0'});
+  card.appendChild(el('div',{class:'qhead'},el('span',{class:'chip'},AFBT[q.afb]),el('span',{class:'chip'},q.z),el('span',{class:'qn'},'Aufgabe '+(qi+1)+' von '+QUIZ.length)));
+  card.appendChild(el('h3',{class:'qp'},q.p));
+  var body=el('div',{});
+  card.appendChild(body);
+  var actions=el('div',{class:'qact'}), checkBtn=null;
+  if(!st.done){
+    checkBtn=el('button',{type:'button',class:'btn',disabled:true},'Prüfen');
+    checkBtn.addEventListener('click',function(){st.ok=evaluate(q,st);st.done=true;renderQuiz()});
+    actions.appendChild(checkBtn);
+  }
+  drawAnswer(q,st,body,function(){if(checkBtn)checkBtn.disabled=!ready(q,st)});
+  if(st.done){
+    var fb=el('div',{class:'fb '+(st.ok?'ok':'bad'),role:'status'},el('b',{},st.ok?'Richtig.':'Nicht ganz.'),q.ex||'Lies die Erklärungen zu den einzelnen Aussagen.');
+    if(q.type==='tf')fb.lastChild.textContent=st.ok?'Alle vier Aussagen stimmen.':'Mindestens eine Aussage war nicht richtig. Die Erklärungen stehen oben.';
+    card.appendChild(fb);
+    var last=qi===QUIZ.length-1;
+    var nb=el('button',{type:'button',class:'btn'},last?'Ergebnis ansehen':'Nächste Aufgabe');
+    nb.addEventListener('click',function(){if(last)finished=true;else qi++;renderQuiz();var t=$('#h-quiz').getBoundingClientRect().top+window.scrollY-90;window.scrollTo(0,Math.max(0,t))});
+    actions.appendChild(nb);
+  }
+  card.appendChild(actions);
+  box.appendChild(card);
+}
+function renderResult(box){
+  var total=QUIZ.length, score=QS.filter(function(s){return s.ok}).length;
+  S.quiz={score:score,total:total}; save();
+  var msg=score>=Math.ceil(total*.8)?'Sehr gut. Du hast den Text sicher erschlossen.':(score>=Math.ceil(total*.5)?'Solide Basis. Sieh dir die Aufgaben mit dem Kreuz noch einmal an.':'Lies den Text noch einmal in Ruhe und versuche das Quiz erneut.');
+  var card=el('div',{class:'card res',style:'margin-top:0'},el('h3',{},score+' von '+total+' Aufgaben richtig'),el('p',{},msg));
+  var ul=el('ul',{});
+  [1,2,3].forEach(function(a){
+    var ids=QUIZ.map(function(q,i){return q.afb===a?i:-1}).filter(function(i){return i>=0});
+    var r=ids.filter(function(i){return QS[i].ok}).length;
+    ul.appendChild(el('li',{},el('span',{class:'chip'},AFBT[a].split(' · ')[0]),el('span',{},AFBT[a].split(' · ')[1]+': '+r+' von '+ids.length)));
+  });
+  card.appendChild(ul);
+  var missed=QUIZ.map(function(q,i){return QS[i].ok?null:'Aufgabe '+(i+1)+' ('+q.z+')'}).filter(Boolean);
+  if(missed.length)card.appendChild(el('p',{},el('b',{},'Noch einmal ansehen: '),missed.join(', ')+'.'));
+  var bar=el('div',{class:'bar'});
+  var again=el('button',{type:'button',class:'btn ghost'},'Quiz wiederholen');
+  again.addEventListener('click',function(){resetQuiz();renderQuiz()});
+  var toText=el('button',{type:'button',class:'btn ghost'},'Zurück zum Text');
+  toText.addEventListener('click',function(){nav('text')});
+  var next=el('button',{type:'button',class:'btn'},'Weiter zum Transfer');
+  next.addEventListener('click',function(){nav('transfer')});
+  bar.appendChild(again);bar.appendChild(toText);bar.appendChild(next);
+  card.appendChild(bar);
+  box.appendChild(card);
+}
+(function(){
+  var clone=$('#kant').cloneNode(true);
+  clone.removeAttribute('id'); clone.classList.add('small'); clone.style.removeProperty('--zoom');
+  $$('button.term',clone).forEach(function(b){var s=document.createElement('span');s.innerHTML=b.innerHTML;b.replaceWith(s)});
+  $('#quizText').replaceWith(clone); clone.id='quizText';
+})();
+
+/* ---------- Transfer ---------- */
+var HEUTE=[
+ {k:'»ein Buch, das für mich Verstand hat«',z:'Z. 17–18',h:'Suchmaschine, KI-Chat, Erklärvideo, fertige Zusammenfassung: Die Antwort ist sofort da. Prüfe ich sie oder übernehme ich sie?'},
+ {k:'»ein Seelsorger, der für mich Gewissen hat«',z:'Z. 18',h:'Influencer, Gruppenchat, Trends: Wer sagt mir, was man gut oder schlecht findet? Wessen Urteil übernehme ich?'},
+ {k:'»ein Arzt, der für mich die Diät beurteilt«',z:'Z. 19',h:'Gesundheits- und Fitness-Apps, Smartwatch-Werte, Tipps aus Social Media: Wer entscheidet über meinen Alltag, ich oder die App?'},
+ {k:'»Satzungen und Formeln«',z:'Z. 29–30',h:'»Das haben wir schon immer so gemacht«, Standardantworten, Vorlagen und Checklisten, die man abhakt, ohne nachzudenken. Hilfe oder Fußschellen?'},
+ {k:'»Faulheit und Feigheit«',z:'Z. 11',h:'Bequem: Ich nehme die erste Antwort. Mutlos: Ich widerspreche nicht, weil ich nicht auffallen will, im Klassenchat, im Betrieb, im Praktikum.'}
+];
+(function(){
+  var grid=$('#heuteGrid');
+  HEUTE.forEach(function(h,i){
+    var id='ta-mine-'+i;
+    var today=el('p',{class:'today',hidden:true},el('b',{},'Vorschlag: '),h.h);
+    var btn=el('button',{type:'button',class:'btn ghost small','aria-expanded':'false',disabled:true},'Vorschlag ansehen');
+    var hint=el('p',{class:'hint'},'Schreibe zuerst dein Beispiel auf, dann kannst du den Vorschlag ansehen.');
+    function upd(){var ok=t.value.trim().length>=8;btn.disabled=!ok;hint.hidden=ok||!today.hidden}
+    btn.addEventListener('click',function(){var o=today.hidden;today.hidden=!o;btn.setAttribute('aria-expanded',String(o));btn.textContent=o?'Vorschlag verbergen':'Vorschlag ansehen';upd()});
+    var card=el('article',{class:'rv'},
+      el('div',{},el('span',{class:'chip'},h.z)),
+      el('h4',{},'Kant: '+h.k),
+      el('label',{for:id,class:'lbl',style:'font-weight:400'},'Wo begegnet dir das heute?'),
+      el('textarea',{id:id,class:'ta',style:'min-height:76px;margin-top:0',placeholder:'Mein Beispiel …'}),
+      today,btn,hint);
+    grid.appendChild(card);
+    var t=card.querySelector('textarea'); t.value=S.mine[i]||'';
+    t.addEventListener('input',function(){S.mine[i]=t.value;save();upd()});
+    upd();
+  });
+})();
+
+var SITS=[
+ {t:'Das Referat',s:'Du sollst ein Referat zum Klimawandel halten. Ein KI-Chat liefert dir sofort eine fertige Gliederung und den ganzen Text.',
+  o:[['Ich übernehme alles so, wie es ist.','Bequem, aber riskant: Du weißt nicht, ob es stimmt, und könntest es danach nicht verteidigen. Hier ist Kants »Es ist so bequem« (Z. 16–17) sehr nah.'],
+     ['Ich nutze die Gliederung als Anstoß, prüfe die Aussagen und schreibe in eigenen Worten.','Das passt zu Kant: Hilfe ist erlaubt, solange du prüfst und die Verantwortung behältst. Du bleibst die Person, die urteilt.'],
+     ['Ich verzichte komplett auf KI und Internet.','Selbstständig, aber nicht automatisch mündiger. Kant fordert nicht, alles allein zu machen, sondern selbst zu prüfen und zu entscheiden. Auch Quellen kritisch zu nutzen ist Selbstdenken.']]},
+ {t:'Der Klassenchat',s:'In der Klassengruppe macht jemand einen herabwürdigenden Witz über eine Mitschülerin. Viele schicken lachende Emojis.',
+  o:[['Ich schicke auch ein Emoji, sonst falle ich auf.','Das ist menschlich. Kant würde fragen: Ist das mein eigenes Urteil, oder passe ich mich an, weil mir der Mut fehlt (»Feigheit«, Z. 11)?'],
+     ['Ich reagiere nicht, aber ich lache auch nicht mit.','Ein Zwischenweg: Du machst nicht mit, sagst aber auch nichts. Frage dich, was du bräuchtest, um mutiger zu sein.'],
+     ['Ich widerspreche oder schreibe der Betroffenen privat.','Mut sieht unterschiedlich aus. Öffentlich widersprechen ist eine Möglichkeit, der Betroffenen privat beizustehen eine andere. Wichtig ist, dass es dein eigenes Urteil ist.']]},
+ {t:'Der Feed',s:'Dein Social-Media-Feed zeigt dir fast nur Beiträge, die zu deiner Meinung passen.',
+  o:[['Passt doch, ich scrolle einfach weiter.','Bequem: Der Feed übernimmt die Auswahl. Kant würde fragen, wer hier eigentlich entscheidet, was du siehst und denkst.'],
+     ['Ich suche bewusst auch Quellen mit anderer Sicht.','Das ist Selbstdenken: Du prüfst, statt zu übernehmen.'],
+     ['Ich lösche alle Social-Media-Apps.','Konsequent, aber nicht die einzige mündige Lösung. Entscheidend ist, ob du die Nutzung selbst steuerst.']]},
+ {t:'Das Praktikum',s:'Im Praktikum sagt dein Anleiter: »Das haben wir schon immer so gemacht.« Du hast eine Idee, die besser funktionieren könnte.',
+  o:[['Ich behalte die Idee für mich.','Verständlich, denn Praktikantinnen und Praktikanten haben wenig Macht. Kant würde nach dem Grund fragen: Bequemlichkeit, Angst oder gute Gründe?'],
+     ['Ich frage freundlich nach dem Grund und schlage meine Idee vor.','Das ist öffentlicher Vernunftgebrauch im Kleinen: Du äußerst einen Gedanken und stellst ihn zur Diskussion.'],
+     ['Ich mache es einfach auf meine Weise.','Eigenständig, aber ohne Austausch. Kant verlangt die Freiheit, Gedanken öffentlich zu äußern und zu prüfen. Das ist etwas anderes, als Absprachen zu umgehen.']]}
+];
+function renderSits(){
+  var box=$('#sitBox'); box.innerHTML='';
+  SITS.forEach(function(s,i){
+    var card=el('div',{class:'card sit'},el('h4',{},s.t),el('p',{style:'margin:0'},s.s));
+    var opts=el('div',{class:'opts',role:'group','aria-label':s.t});
+    s.o.forEach(function(o,j){
+      var b=el('button',{type:'button',class:'opt single','aria-pressed':String(S.sit[i]===j)},el('span',{class:'box'}),el('span',{},o[0]));
+      b.addEventListener('click',function(){S.sit[i]=j;save();renderSits()});
+      opts.appendChild(b);
+    });
+    card.appendChild(opts);
+    if(S.sit[i]!=null)card.appendChild(el('div',{class:'fb neutral',role:'status'},el('b',{},'Rückfrage im Sinne Kants'),s.o[S.sit[i]][1]));
+    box.appendChild(card);
+  });
+}
+
+var ARGS=[
+ {p:true,t:'KI und soziale Medien liefern fertige Antworten und Meinungen. Wer nicht prüft, übernimmt leicht Falsches.'},
+ {p:true,t:'Algorithmen entscheiden mit, was ich sehe. Selbstdenken heißt auch, diese Auswahl zu hinterfragen.'},
+ {p:true,t:'Eine Demokratie braucht Menschen, die sich selbst eine Meinung bilden und sie äußern dürfen.'},
+ {p:false,t:'Niemand kann alles selbst prüfen. Arbeitsteilung und Vertrauen, etwa in Fachleute, sind sinnvoll.'},
+ {p:false,t:'Nicht alle haben die gleichen Bildungs- und Zeitmöglichkeiten. Der Appell an den Mut des Einzelnen greift zu kurz.'},
+ {p:false,t:'Öffentlich zu widersprechen kann Nachteile haben, etwa Gruppendruck, Hass im Netz oder schlechtere Noten. Mut hat Grenzen.'}
+];
+var STARTERS=['Kants Forderung ist heute (noch) aktuell, weil …','Ein Beispiel aus meinem Alltag: …','Man könnte einwenden, dass …','Dagegen spricht jedoch, dass …','Ich komme zu dem Urteil, dass …'];
+function renderArgs(){
+  var box=$('#argBox'); box.innerHTML='';
+  ARGS.forEach(function(a,i){
+    var b=el('button',{type:'button',class:'arg','aria-pressed':String(!!S.args[i])},
+      el('span',{class:'chip tag'},a.p?'Spricht für Aktualität':'Schränkt ein'),
+      el('span',{},a.t));
+    b.addEventListener('click',function(){S.args[i]=!S.args[i];save();renderArgs()});
+    box.appendChild(b);
+  });
+}
+(function(){
+  var st=$('#starters');
+  STARTERS.forEach(function(s){
+    var b=el('button',{type:'button',class:'btn ghost small'},s);
+    b.addEventListener('click',function(){
+      var t=$('#ta-urteil'), v=t.value;
+      t.value=v+(v&&!/\s$/.test(v)?' ':'')+s+' ';
+      S.urteil=t.value; save(); t.focus();
+      t.setSelectionRange(t.value.length,t.value.length);
+    });
+    st.appendChild(b);
+  });
+})();
+bindTA('ta-urteil',function(){return S.urteil},function(v){S.urteil=v});
+
+function renderRueck(){
+  var r=$('#rueck');
+  if(S.ein==null){r.textContent='Am Anfang konntest du dir eine Antwort aussuchen, wie du etwas Neues lernst. Wenn du magst, geh zurück zum Einstieg und probiere es aus. Danach: Würdest du nach diesem Text anders vorgehen?';return}
+  r.textContent='Am Anfang hast du gesagt: »'+EIN[S.ein][0]+'« Würdest du nach diesem Text anders vorgehen? Warum, oder warum nicht?';
+}
+
+function summary(){
+  var L=[]; L.push('Kant und die Aufklärung – meine Ergebnisse'); L.push('');
+  if(S.ein!=null){L.push('Einstieg: '+EIN[S.ein][0]);L.push('')}
+  if(S.erst&&S.erst.trim()){L.push('Erster Eindruck zum Text:');L.push(S.erst.trim());L.push('')}
+  var begs=BEG.map(function(b,i){return (S.beg[i]&&S.beg[i].trim())?'- '+b.t+': '+S.beg[i].trim():null}).filter(Boolean);
+  if(begs.length){L.push('Schlüsselbegriffe in eigenen Worten:');L=L.concat(begs);L.push('')}
+  if(S.quiz){L.push('Quiz: '+S.quiz.score+' von '+S.quiz.total+' Aufgaben richtig');L.push('')}
+  var mine=HEUTE.map(function(h,i){return (S.mine[i]&&S.mine[i].trim())?'- '+h.k+': '+S.mine[i].trim():null}).filter(Boolean);
+  if(mine.length){L.push('Beispiele aus meinem Alltag:');L=L.concat(mine);L.push('')}
+  var sits=SITS.map(function(s,i){return S.sit[i]!=null?'- '+s.t+': '+s.o[S.sit[i]][0]:null}).filter(Boolean);
+  if(sits.length){L.push('Meine Entscheidungen in den Situationen:');L=L.concat(sits);L.push('')}
+  var args=ARGS.map(function(a,i){return S.args[i]?'- ('+(a.p?'für Aktualität':'einschränkend')+') '+a.t:null}).filter(Boolean);
+  if(args.length){L.push('Argumente, die mich überzeugen:');L=L.concat(args);L.push('')}
+  if(S.urteil&&S.urteil.trim()){L.push('Mein Urteil: Ist »Sapere aude!« heute noch aktuell?');L.push(S.urteil.trim())}
+  return L.join('\n').replace(/\n+$/,'');
+}
+$('#copyBtn').addEventListener('click',function(){
+  var txt=summary(), out=$('#sumOut'), msg=$('#copyMsg');
+  out.value=txt;
+  function fallback(){out.hidden=false;out.focus();out.select();msg.textContent='Automatisches Kopieren geht hier nicht. Der Text ist markiert: Kopiere ihn mit Strg+C (Handy: gedrückt halten, Kopieren).'}
+  try{
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(function(){out.hidden=false;msg.textContent='Kopiert. Du kannst den Text jetzt einfügen. Unten siehst du, was kopiert wurde.'},fallback);
+    }else fallback();
+  }catch(e){fallback()}
+});
+var resetArmed=false;
+$('#resetBtn').addEventListener('click',function(){
+  var b=$('#resetBtn');
+  if(!resetArmed){resetArmed=true;b.textContent='Wirklich alles löschen? Noch einmal klicken.';setTimeout(function(){resetArmed=false;b.textContent='Meine Eingaben auf diesem Gerät löschen'},5000);return}
+  S={mine:{},sit:{},args:{},tags:{}}; try{localStorage.removeItem(KEY)}catch(e){}
+  try{location.reload()}catch(e){}
+});
+
+/* ---------- Start ---------- */
+renderPoll(); renderChunks(); renderQuiz(); renderSits(); renderArgs(); renderRueck();
+go(location.hash.slice(1));
+})();
+</script>
+</body></html>
